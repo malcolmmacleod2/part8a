@@ -25,7 +25,7 @@ const BirthYear = ({authors}) => {
 
         const author = authors.find(a => a.name === selectedOption.value)
         const bornYear = parseInt(born)
-        console.log({bornYear})
+
         editAuthor( { variables: {name: author.name, setBornTo: bornYear}})
         setBorn(0)
     }
