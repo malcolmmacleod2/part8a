@@ -15,6 +15,7 @@ query {
     title
     author { name }
     published
+    genres
   }
 }
 `
