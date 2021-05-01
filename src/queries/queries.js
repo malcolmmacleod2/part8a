@@ -59,4 +59,9 @@ mutation login($username: String!, $password: String!) {
 }
 `
 
-export { ADD_BOOK, ALL_AUTHORS, ALL_BOOKS, EDIT_AUTHOR, LOGIN }
+const ME = gql`
+query {
+  me { username, favoriteGenre}
+}`
+
+export { ADD_BOOK, ALL_AUTHORS, ALL_BOOKS, EDIT_AUTHOR, LOGIN, ME }
