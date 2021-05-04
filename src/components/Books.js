@@ -1,23 +1,26 @@
 import React, {useState, useEffect} from 'react'
-import { useLazyQuery } from '@apollo/client';
-import { ALL_BOOKS } from '../queries/queries'
+import { useQuery, useLazyQuery } from '@apollo/client';
+import { ALL_BOOKS, BOOKS_BY_GENRE } from '../queries/queries'
 
 
 const Books = (props) => {
   
   const [genre, setGenre] = useState(null)
 
-  const [getBooksByGenre, { loading, data }] = useLazyQuery(ALL_BOOKS, {
-    variables: { genre: genre }
+  const allBooks = useQuery(ALL_BOOKS, {
+    fetchPolicy: "cache-and-network"
+  }) 
+
+  const [getBooksByGenre, { loading, data }] = useLazyQuery(BOOKS_BY_GENRE, {
+    variables: { genre: genre },
+    fetchPolicy: "cache-and-network"
   }) 
 
   useEffect(() => {
+    console.log({genre})
     if (genre) {
       getBooksByGenre(genre)
-    } else {
-      getBooksByGenre()
     }
-      
   }, [genre, getBooksByGenre])
 
   if (!props.show) {
@@ -29,18 +32,19 @@ const Books = (props) => {
   }
 
   console.log({data})
-
-  let allBooks = data.allBooks 
+  console.log({allBooks})
 
   let genres = []
 
-  for (let book of allBooks) {
+  for (let book of allBooks.data.allBooks) {
     for (let genre of book.genres) {
       if (!genres.includes(genre)) {
         genres.push(genre)
       }
     }
   }
+
+  let books = data && data.allBooks ? data.allBooks : allBooks.data.allBooks
 
   return (
     <div>
@@ -57,7 +61,7 @@ const Books = (props) => {
               published
             </th>
           </tr>
-          {allBooks.map(a =>
+          {books.map(a =>
             <tr key={a.title}>
               <td>{a.title}</td>
               <td>{a.author.name}</td>
