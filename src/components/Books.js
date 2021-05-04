@@ -28,6 +28,8 @@ const Books = (props) => {
     return <div>loading...</div>
   }
 
+  console.log({data})
+
   let allBooks = data.allBooks 
 
   let genres = []

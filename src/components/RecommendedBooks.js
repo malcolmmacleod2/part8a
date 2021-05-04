@@ -9,7 +9,8 @@ const RecommendedBooks = (props) => {
   const [genre, setGenre] = useState()
 
   const [getBooksByGenre, { loading, data }] = useLazyQuery(BOOKS_BY_GENRE, {
-    variables: { genre: genre }
+    variables: { genre: genre },
+    fetchPolicy: "cache-first"
   }) 
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const RecommendedBooks = (props) => {
 
   if (loading)  {
     return <div>loading...</div>
-  }
+  } 
 
   console.log({data})
   const books = data.allBooks
