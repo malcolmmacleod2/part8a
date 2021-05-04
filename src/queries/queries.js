@@ -65,7 +65,7 @@ query {
 }`
 
 const BOOKS_BY_GENRE = gql`
-query($genre: String!) {
+query($genre: String) {
   allBooks(genre: $genre){
     title
     author { name }
