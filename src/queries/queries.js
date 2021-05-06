@@ -75,4 +75,13 @@ query($genre: String) {
 }
 `
 
-export { ADD_BOOK, ALL_AUTHORS, ALL_BOOKS, EDIT_AUTHOR, LOGIN, ME, BOOKS_BY_GENRE }
+const BOOK_ADDED = gql`
+  subscription {
+    bookAdded {
+      title,
+      published
+    }
+  }
+`
+
+export { ADD_BOOK, ALL_AUTHORS, ALL_BOOKS, EDIT_AUTHOR, LOGIN, ME, BOOKS_BY_GENRE, BOOK_ADDED }
