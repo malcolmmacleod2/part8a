@@ -8,12 +8,11 @@ const Books = (props) => {
   const [genre, setGenre] = useState(null)
 
   const allBooks = useQuery(ALL_BOOKS, {
-    fetchPolicy: "cache-and-network"
+    
   }) 
 
   const [getBooksByGenre, { loading, data }] = useLazyQuery(BOOKS_BY_GENRE, {
-    variables: { genre: genre },
-    fetchPolicy: "cache-and-network"
+    variables: { genre: genre }
   }) 
 
   useEffect(() => {
@@ -30,9 +29,6 @@ const Books = (props) => {
   if (loading)  {
     return <div>loading...</div>
   }
-
-  console.log({data})
-  console.log({allBooks})
 
   let genres = []
 
